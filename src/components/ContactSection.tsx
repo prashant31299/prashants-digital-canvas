@@ -1,0 +1,156 @@
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+
+const ContactSection = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const contactInfo = [
+    {
+      icon: <Mail className="h-6 w-6 text-primary" />,
+      title: "Email",
+      details: "prashantchavan312199@gmail.com",
+      link: "mailto:prashantchavan312199@gmail.com",
+    },
+    {
+      icon: <Phone className="h-6 w-6 text-primary" />,
+      title: "Phone",
+      details: "+91 9579544393",
+      link: "tel:+919579544393",
+    },
+    {
+      icon: <MapPin className="h-6 w-6 text-primary" />,
+      title: "Location",
+      details: "Nagpur, Maharashtra, India",
+      link: "https://maps.google.com/?q=Nagpur,Maharashtra,India",
+    },
+  ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setFormData({ name: "", email: "", message: "" });
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+    }, 1500);
+  };
+
+  return (
+    <section id="contact" className="section-padding">
+      <div className="container mx-auto">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Get In Touch</h2>
+          <p className="text-lg text-foreground/80">
+            Have a project in mind or want to collaborate? Feel free to reach out to me.
+            I'm always open to discussing new projects and opportunities.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
+            
+            {contactInfo.map((info, index) => (
+              <Card key={index} className="border shadow-sm">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <div className="rounded-full p-3 bg-primary/10 flex items-center justify-center">
+                    {info.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-lg mb-1">{info.title}</h4>
+                    <a 
+                      href={info.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {info.details}
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="lg:col-span-3">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-2xl font-semibold mb-6">Send Me a Message</h3>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block mb-2 text-sm font-medium">
+                      Name
+                    </label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your name"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Your email"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block mb-2 text-sm font-medium">
+                      Message
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Your message"
+                      rows={5}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
