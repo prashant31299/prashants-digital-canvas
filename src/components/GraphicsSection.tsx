@@ -9,63 +9,72 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Download } from "lucide-react";
+import { ExternalLink, Download, Maximize } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const GraphicsSection = () => {
   const { toast } = useToast();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
-  // These are placeholder items - you'll need to replace with your actual graphics work
+  // Updated with actual graphics work from IPCS Global
   const graphicsItems = [
     {
       id: 1,
-      title: "3D Cat Character",
-      description: "3D modeling and rendering for character design",
-      image: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800&auto=format&fit=crop&q=80",
-      tags: ["3D Modeling", "Character Design"],
+      title: "Industrial Automation",
+      description: "Promotional graphic for Industrial Automation course",
+      image: "public/lovable-uploads/dbd97283-009e-4f09-b1ec-8621c7b4b48f.png",
+      tags: ["Marketing", "Course Promotion"],
     },
     {
       id: 2,
-      title: "Gaming Poster",
-      description: "Promotional poster for a gaming event",
-      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop&q=80",
-      tags: ["Poster Design", "Gaming"],
+      title: "Industrial Automation - Package",
+      description: "Course package advertisement with salary details",
+      image: "public/lovable-uploads/324dc493-18fb-4caf-aeb5-dd9e7938a670.png",
+      tags: ["Social Media", "Advertisement"],
     },
     {
       id: 3,
-      title: "Brand Logo Design",
-      description: "Logo concept for a premium brand",
-      image: "https://images.unsplash.com/photo-1503386435953-66943ba30817?w=800&auto=format&fit=crop&q=80",
-      tags: ["Logo Design", "Branding"],
+      title: "Building Management System",
+      description: "Promotional poster for BMS training program",
+      image: "public/lovable-uploads/ba06258e-d905-4f0b-b46a-813924a01aa0.png",
+      tags: ["Poster Design", "Technology"],
     },
     {
       id: 4,
-      title: "Social Media Graphics",
-      description: "Content templates for Instagram and Facebook",
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&auto=format&fit=crop&q=80",
-      tags: ["Social Media", "Templates"],
+      title: "Python & Data Science",
+      description: "Training course advertisement for Python & Data Science",
+      image: "public/lovable-uploads/ca87af4e-189d-472c-a221-58c031c80bee.png",
+      tags: ["Course Promotion", "Tech Education"],
     },
     {
       id: 5,
-      title: "Product Packaging",
-      description: "Creative packaging design for cosmetics",
-      image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&auto=format&fit=crop&q=80",
-      tags: ["Packaging", "Product Design"],
+      title: "Digital Marketing Training",
+      description: "Promotional graphic for Digital Marketing course",
+      image: "public/lovable-uploads/f50ec255-3074-442e-b8f3-419072106c1c.png",
+      tags: ["Marketing", "Education"],
     },
     {
       id: 6,
-      title: "3D Character Animation",
-      description: "Character design and animation for games",
-      image: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&auto=format&fit=crop&q=80",
-      tags: ["3D Design", "Animation"],
+      title: "Data Analytics & Power BI",
+      description: "Course advertisement featuring AI/robotics imagery",
+      image: "public/lovable-uploads/d8b85c67-18ba-4dc4-8c8c-c2d6a12a0a8d.png",
+      tags: ["Tech Education", "AI"],
+    },
+    {
+      id: 7,
+      title: "Digital Marketing Course",
+      description: "Vibrant promotional banner for digital marketing training",
+      image: "public/lovable-uploads/abc499c4-b77d-4d69-8aed-9a966efd6da5.png",
+      tags: ["Social Media", "Marketing"],
     },
   ];
 
-  const handleViewFull = () => {
-    toast({
-      title: "Graphics Portfolio",
-      description: "Contact me to view the full resolution graphics portfolio."
-    });
+  const handleViewFull = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const closeFullScreen = () => {
+    setSelectedImage(null);
   };
 
   return (
@@ -74,10 +83,7 @@ const GraphicsSection = () => {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Graphics Portfolio</h2>
           <p className="text-lg text-foreground/80 mb-8">
-            Here's a showcase of my work in graphics design, 3D modeling, and visual content creation.
-          </p>
-          <p className="text-sm text-muted-foreground mb-8 p-3 border rounded bg-muted/20">
-            Note: This section displays placeholder graphics. To view my actual graphics work, please visit my <a href="https://drive.google.com/drive/folders/1YlgcSy3tNJPe75ZRViXSfePC_-no9OdF" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google Drive Portfolio</a>.
+            Here's a showcase of my work in graphics design, promotional materials, and marketing visuals.
           </p>
         </div>
 
@@ -93,9 +99,9 @@ const GraphicsSection = () => {
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                        <Button size="sm" variant="secondary" onClick={handleViewFull}>
-                          <ExternalLink className="h-4 w-4 mr-2" /> View Full
+                      <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity duration-300">
+                        <Button size="sm" variant="secondary" onClick={() => handleViewFull(item.image)}>
+                          <Maximize className="h-4 w-4 mr-2" /> View Full
                         </Button>
                       </div>
                     </div>
@@ -125,6 +131,8 @@ const GraphicsSection = () => {
         </Carousel>
 
         <div className="text-center mt-10">
+          <p className="text-muted-foreground mb-4">These are promotional graphics I designed for IPCS Global training programs.</p>
+          
           <Button asChild variant="outline">
             <a 
               href="https://drive.google.com/drive/folders/1YlgcSy3tNJPe75ZRViXSfePC_-no9OdF" 
@@ -132,11 +140,35 @@ const GraphicsSection = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center"
             >
-              <Download className="h-4 w-4 mr-2" /> View Full Graphics Portfolio
+              <Download className="h-4 w-4 mr-2" /> View More Graphics Work
             </a>
           </Button>
         </div>
       </div>
+
+      {/* Fullscreen Image Viewer */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={closeFullScreen}
+        >
+          <div className="relative max-w-5xl max-h-[90vh]">
+            <Button 
+              variant="secondary" 
+              size="icon" 
+              className="absolute -top-12 right-0"
+              onClick={closeFullScreen}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+            <img 
+              src={selectedImage} 
+              alt="Full size graphic" 
+              className="max-w-full max-h-[85vh] object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };

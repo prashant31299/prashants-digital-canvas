@@ -13,7 +13,7 @@ const Navbar = () => {
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "Portfolio", href: "#portfolio" },
-    { label: "Graphics", href: "#graphics" },
+    { label: "Graphics", href: "#graphics", highlight: true },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -47,7 +47,9 @@ const Navbar = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-foreground/80 hover:text-primary font-medium text-sm animated-underline"
+                    className={`text-foreground/80 hover:text-primary font-medium text-sm animated-underline ${
+                      link.highlight ? 'text-primary font-semibold' : ''
+                    }`}
                   >
                     {link.label}
                   </a>
@@ -83,7 +85,9 @@ const Navbar = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="block py-2 text-foreground/80 hover:text-primary font-medium"
+                    className={`block py-2 text-foreground/80 hover:text-primary font-medium ${
+                      link.highlight ? 'text-primary font-semibold' : ''
+                    }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
