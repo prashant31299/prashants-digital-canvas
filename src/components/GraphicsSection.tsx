@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Download, Maximize } from "lucide-react";
+import { ExternalLink, Download, Maximize, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const GraphicsSection = () => {
