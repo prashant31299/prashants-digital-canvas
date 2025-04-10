@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import GraphicsCarousel from "./graphics/GraphicsCarousel";
 import FullScreenViewer from "./graphics/FullScreenViewer";
 import TabContent from "./graphics/TabContent";
-import { ipcsItems, ayurvedaItems, travelsItems } from "./graphics/graphicsData";
+import { ipcsItems, ayurvedaItems, travelsItems, xclusiveItems } from "./graphics/graphicsData";
 
 const GraphicsSection = () => {
   const { toast } = useToast();
@@ -32,12 +31,23 @@ const GraphicsSection = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="travels" className="w-full mb-8">
+        <Tabs defaultValue="xclusive" className="w-full mb-8">
           <TabsList className="mx-auto flex justify-center flex-wrap">
+            <TabsTrigger value="xclusive" className="text-sm md:text-base">Xclusive Vision</TabsTrigger>
             <TabsTrigger value="travels" className="text-sm md:text-base">Krishna Travels</TabsTrigger>
             <TabsTrigger value="ayurveda" className="text-sm md:text-base">Hilarius Ayurveda</TabsTrigger>
             <TabsTrigger value="ipcs" className="text-sm md:text-base">IPCS Global</TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="xclusive" className="mt-8">
+            <TabContent 
+              title="Xclusive Vision"
+              description="Visa and immigration consultancy graphics created for Xclusive Vision, featuring visa services, 
+              success stories, and international travel opportunities."
+              items={xclusiveItems}
+              onViewFull={handleViewFull}
+            />
+          </TabsContent>
           
           <TabsContent value="travels" className="mt-8">
             <TabContent 

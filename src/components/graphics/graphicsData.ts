@@ -1,4 +1,3 @@
-
 import { GraphicsItem } from "./GraphicsCarousel";
 
 // IPCS Global graphics
@@ -213,5 +212,79 @@ export const travelsItems: GraphicsItem[] = [
     description: "Promotional banner for Thailand tourism package",
     image: "public/lovable-uploads/7f2d435c-35cc-4a12-9c13-e41ac3178549.png",
     tags: ["International", "Tourism"],
+  },
+];
+
+// Xclusive Vision graphics
+export const xclusiveItems: GraphicsItem[] = [
+  {
+    id: 1,
+    title: "Europe Visa Promotion",
+    description: "Promotional banner for Schengen visa services",
+    image: "public/lovable-uploads/187a2bef-9553-4ce4-82b2-f220de70b31d.png",
+    tags: ["Europe", "Visa Services", "Immigration"],
+  },
+  {
+    id: 2,
+    title: "USA Visa Services",
+    description: "Promotional graphic for B1/B2 USA visa consultation",
+    image: "public/lovable-uploads/591aafda-a0d2-4100-bcbf-04d76ed16c84.png",
+    tags: ["USA", "B1/B2 Visa", "Immigration"],
+  },
+  {
+    id: 3,
+    title: "Visa Cost Coverage",
+    description: "Information about visa fees and services provided",
+    image: "public/lovable-uploads/5b974771-2b64-46d5-8a3c-a9ba74022a81.png",
+    tags: ["Services", "Payment Options"],
+  },
+  {
+    id: 4,
+    title: "UK Visa Success Story",
+    description: "Client success story showcasing approved UK visa",
+    image: "public/lovable-uploads/a152cc3b-fe80-4a49-8995-c8085773193b.png",
+    tags: ["Success Story", "UK Visa", "Testimonial"],
+  },
+  {
+    id: 5,
+    title: "Canada Immigration",
+    description: "Promotional material for Canadian immigration services",
+    image: "public/lovable-uploads/584f65df-4a01-4d49-9b16-14b3223ca896.png",
+    tags: ["Canada", "Immigration", "Career"],
+  },
+  {
+    id: 6,
+    title: "Poland Visa Services",
+    description: "Marketing graphic for Poland immigration opportunities",
+    image: "public/lovable-uploads/5b088019-4bd5-4405-a68c-ba85d1a07885.png",
+    tags: ["Poland", "Europe", "Immigration"],
+  },
+  {
+    id: 7,
+    title: "UK Tier-2 Visa Success",
+    description: "Client testimonial for successfully obtaining a UK Tier-2 visa",
+    image: "public/lovable-uploads/46f4022a-f799-4b46-9266-5821b27b8292.png",
+    tags: ["UK", "Tier-2 Visa", "Success Story"],
+  },
+  {
+    id: 8,
+    title: "FAQ & Support",
+    description: "Interactive Q&A graphic for visa consultations",
+    image: "public/lovable-uploads/bb444f8e-5dc3-44bc-85bc-34633135970b.png",
+    tags: ["Support", "FAQ", "Consultation"],
+  },
+  {
+    id: 9,
+    title: "Visa Success Stories - 1",
+    description: "Promotional banner highlighting client success stories",
+    image: "public/lovable-uploads/10c817c0-820b-4b87-a27a-1a56a259b3ff.png",
+    tags: ["Testimonials", "Success Stories"],
+  },
+  {
+    id: 10,
+    title: "Visa Success Stories - 2",
+    description: "Detailed client testimonials and immigration success cases",
+    image: "public/lovable-uploads/3592f5eb-0253-495b-8e68-8cb3dc39a530.png",
+    tags: ["Testimonials", "Success Stories"],
   },
 ];
