@@ -22,12 +22,16 @@ interface GraphicsCarouselProps {
 }
 
 const GraphicsCarousel = ({ items, onViewFull }: GraphicsCarouselProps) => {
+  if (!items || items.length === 0) {
+    return null;
+  }
+  
   return (
     <Carousel className="w-full max-w-5xl mx-auto">
       <CarouselContent>
         {items.map((item) => (
-          <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
+          <CarouselItem key={item.id} className="sm:basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+            <div className="p-1 h-full">
               <ImageCard {...item} onViewFull={onViewFull} />
             </div>
           </CarouselItem>

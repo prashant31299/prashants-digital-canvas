@@ -10,17 +10,27 @@ interface FullScreenViewerProps {
 const FullScreenViewer = ({ selectedImage, onClose }: FullScreenViewerProps) => {
   if (!selectedImage) return null;
 
+  const handleContainerClick = (e: React.MouseEvent) => {
+    // Only close if clicking the background, not the image itself
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <div 
       className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-      onClick={onClose}
+      onClick={handleContainerClick}
     >
       <div className="relative max-w-5xl max-h-[90vh]">
         <Button 
           variant="secondary" 
           size="icon" 
           className="absolute -top-12 right-0"
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
         >
           <X className="h-4 w-4" />
         </Button>
@@ -28,6 +38,7 @@ const FullScreenViewer = ({ selectedImage, onClose }: FullScreenViewerProps) => 
           src={selectedImage} 
           alt="Full size graphic" 
           className="max-w-full max-h-[85vh] object-contain"
+          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
         />
       </div>
     </div>

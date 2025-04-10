@@ -14,23 +14,28 @@ interface ImageCardProps {
 
 const ImageCard = ({ id, title, description, image, tags, onViewFull }: ImageCardProps) => {
   return (
-    <Card className="overflow-hidden group border hover:shadow-lg transition-all duration-300">
-      <div className="relative overflow-hidden h-56">
+    <Card className="overflow-hidden group border hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+      <div className="relative overflow-hidden aspect-[4/3]">
         <img
           src={image}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity duration-300">
-          <Button size="sm" variant="secondary" onClick={() => onViewFull(image)}>
+          <Button 
+            size="sm" 
+            variant="secondary" 
+            onClick={() => onViewFull(image)}
+            aria-label={`View full size image of ${title}`}
+          >
             <Maximize className="h-4 w-4 mr-2" /> View Full
           </Button>
         </div>
       </div>
-      <CardContent className="pt-6">
+      <CardContent className="pt-6 flex-grow flex flex-col">
         <h3 className="text-xl font-semibold mb-1">{title}</h3>
         <p className="text-muted-foreground mb-3">{description}</p>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap mt-auto">
           {tags.map((tag, index) => (
             <span
               key={index}
