@@ -11,13 +11,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Download, Maximize, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const GraphicsSection = () => {
   const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
-  // Updated with actual graphics work from IPCS Global
-  const graphicsItems = [
+  // IPCS Global graphics
+  const ipcsItems = [
     {
       id: 1,
       title: "Industrial Automation",
@@ -69,6 +71,94 @@ const GraphicsSection = () => {
     },
   ];
 
+  // Hilarius Ayurveda graphics
+  const ayurvedaItems = [
+    {
+      id: 1,
+      title: "Triphala Churna Product",
+      description: "Product showcase with ingredients",
+      image: "public/lovable-uploads/0a315e6e-b02b-49fc-9560-4c127b1526bb.png",
+      tags: ["Product Photography", "Ayurveda"],
+    },
+    {
+      id: 2,
+      title: "Benefits of Triphala Churna",
+      description: "Infographic showing health benefits",
+      image: "public/lovable-uploads/6bdc40f1-ba67-407f-92d5-6ced405c7ff4.png",
+      tags: ["Infographic", "Health Benefits"],
+    },
+    {
+      id: 3,
+      title: "Three Pillars of a Healthy Life",
+      description: "Wellness pillars infographic",
+      image: "public/lovable-uploads/9050fd36-852b-463e-8c40-d06fe4f66dae.png",
+      tags: ["Health Education", "Wellness"],
+    },
+    {
+      id: 4,
+      title: "Goodness Inside",
+      description: "Ingredient breakdown infographic",
+      image: "public/lovable-uploads/2119de8a-1e2c-44e5-9dc8-009c505049f3.png",
+      tags: ["Product Information", "Ingredients"],
+    },
+    {
+      id: 5,
+      title: "Triphala: A Tridoshic Rasayan",
+      description: "Ayurvedic educational graphic",
+      image: "public/lovable-uploads/e302e323-2ade-4b6e-a429-766f131da9ff.png",
+      tags: ["Ayurveda Education", "Health"],
+    },
+    {
+      id: 6,
+      title: "How to Consume",
+      description: "Usage instructions graphic",
+      image: "public/lovable-uploads/400f9efc-1afd-47d5-ad65-62a289e2e9a6.png",
+      tags: ["Instructions", "Product Usage"],
+    },
+    {
+      id: 7,
+      title: "Comparison with Other Brands",
+      description: "Competitive comparison chart",
+      image: "public/lovable-uploads/6b6b9cd7-db1a-4323-9f7f-07ed7dde1e5b.png",
+      tags: ["Competitive Analysis", "Product Comparison"],
+    },
+    {
+      id: 8,
+      title: "Triphala Churna Packaging 1",
+      description: "Product packaging design - Front View",
+      image: "public/lovable-uploads/97b2e127-114b-470b-8171-e8cc1a04eb68.png",
+      tags: ["Packaging Design", "Product"],
+    },
+    {
+      id: 9,
+      title: "Triphala Churna Packaging 2",
+      description: "Product packaging design - Alternate View",
+      image: "public/lovable-uploads/756a496f-2fff-4b34-9697-78a7ce35e99b.png",
+      tags: ["Packaging Design", "Product"],
+    },
+    {
+      id: 10,
+      title: "Triphala Churna Packaging 3",
+      description: "Product packaging design - Close Up",
+      image: "public/lovable-uploads/66a9d89a-bd0e-4656-a17d-ab953c10f344.png",
+      tags: ["Packaging Design", "Product"],
+    },
+    {
+      id: 11,
+      title: "Triphala Churna Packaging 4",
+      description: "Product packaging design with background elements",
+      image: "public/lovable-uploads/41e02d73-f935-4d44-851f-edf58bd7c37a.png",
+      tags: ["Packaging Design", "Brand Identity"],
+    },
+    {
+      id: 12,
+      title: "Triphala Churna Packaging 5",
+      description: "Complete product packaging design",
+      image: "public/lovable-uploads/a2e5ddc8-daeb-42c9-bad4-e9a5eec50413.png",
+      tags: ["Packaging Design", "Brand Identity"],
+    },
+  ];
+
   const handleViewFull = (imageUrl: string) => {
     setSelectedImage(imageUrl);
   };
@@ -77,61 +167,93 @@ const GraphicsSection = () => {
     setSelectedImage(null);
   };
 
+  const renderCarousel = (items: typeof ipcsItems) => (
+    <Carousel className="w-full max-w-5xl mx-auto">
+      <CarouselContent>
+        {items.map((item) => (
+          <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
+            <div className="p-1">
+              <Card className="overflow-hidden group border hover:shadow-lg transition-all duration-300">
+                <div className="relative overflow-hidden h-56">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity duration-300">
+                    <Button size="sm" variant="secondary" onClick={() => handleViewFull(item.image)}>
+                      <Maximize className="h-4 w-4 mr-2" /> View Full
+                    </Button>
+                  </div>
+                </div>
+                <CardContent className="pt-6">
+                  <h3 className="text-xl font-semibold mb-1">{item.title}</h3>
+                  <p className="text-muted-foreground mb-3">{item.description}</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {item.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="text-xs bg-secondary px-2 py-1 rounded-full text-secondary-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex justify-center mt-8">
+        <CarouselPrevious className="relative static left-0 translate-y-0 mr-4" />
+        <CarouselNext className="relative static right-0 translate-y-0" />
+      </div>
+    </Carousel>
+  );
+
   return (
     <section id="graphics" className="section-padding bg-background">
       <div className="container mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Graphics Portfolio</h2>
           <p className="text-lg text-foreground/80 mb-8">
-            Here's a showcase of my work in graphics design, promotional materials, and marketing visuals.
+            Here's a showcase of my work in graphics design, promotional materials, and marketing visuals
+            for various clients and brands.
           </p>
         </div>
 
-        <Carousel className="w-full max-w-5xl mx-auto">
-          <CarouselContent>
-            {graphicsItems.map((item) => (
-              <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-1">
-                  <Card className="overflow-hidden group border hover:shadow-lg transition-all duration-300">
-                    <div className="relative overflow-hidden h-56">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity duration-300">
-                        <Button size="sm" variant="secondary" onClick={() => handleViewFull(item.image)}>
-                          <Maximize className="h-4 w-4 mr-2" /> View Full
-                        </Button>
-                      </div>
-                    </div>
-                    <CardContent className="pt-6">
-                      <h3 className="text-xl font-semibold mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground mb-3">{item.description}</p>
-                      <div className="flex gap-2 flex-wrap">
-                        {item.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="text-xs bg-secondary px-2 py-1 rounded-full text-secondary-foreground"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-center mt-8">
-            <CarouselPrevious className="relative static left-0 translate-y-0 mr-4" />
-            <CarouselNext className="relative static right-0 translate-y-0" />
-          </div>
-        </Carousel>
+        <Tabs defaultValue="ayurveda" className="w-full mb-8">
+          <TabsList className="mx-auto flex justify-center">
+            <TabsTrigger value="ayurveda" className="text-sm md:text-base">Hilarius Ayurveda</TabsTrigger>
+            <TabsTrigger value="ipcs" className="text-sm md:text-base">IPCS Global</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="ayurveda" className="mt-8">
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h3 className="text-2xl font-semibold mb-3">Hilarius Ayurveda</h3>
+              <p className="text-muted-foreground">
+                Promotional graphics and packaging designs created for Hilarius Ayurveda's Triphala Churna product line.
+                These designs showcase product benefits, ingredients, and usage instructions.
+              </p>
+            </div>
+            {renderCarousel(ayurvedaItems)}
+          </TabsContent>
+          
+          <TabsContent value="ipcs" className="mt-8">
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h3 className="text-2xl font-semibold mb-3">IPCS Global</h3>
+              <p className="text-muted-foreground">
+                Promotional materials designed for IPCS Global's educational programs and courses,
+                focusing on technology training and digital marketing.
+              </p>
+            </div>
+            {renderCarousel(ipcsItems)}
+          </TabsContent>
+        </Tabs>
 
         <div className="text-center mt-10">
-          <p className="text-muted-foreground mb-4">These are promotional graphics I designed for IPCS Global training programs.</p>
+          <p className="text-muted-foreground mb-4">View more of my graphic design work in my online portfolio.</p>
           
           <Button asChild variant="outline">
             <a 
