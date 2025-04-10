@@ -159,6 +159,80 @@ const GraphicsSection = () => {
     },
   ];
 
+  // Krishna Travels graphics
+  const travelsItems = [
+    {
+      id: 1,
+      title: "Lowest Flight Tickets Guaranteed",
+      description: "Promotional banner for flight bookings with zero convenience fees",
+      image: "public/lovable-uploads/a5a8ab2e-d850-445d-a3d7-d5485cdb7f17.png",
+      tags: ["Travel", "Flight Booking"],
+    },
+    {
+      id: 2,
+      title: "Travel Agents B2B Portal",
+      description: "B2B portal promotion with 1% cashback offer",
+      image: "public/lovable-uploads/894c6ae9-8ce7-454b-8a48-00f73b9c5499.png",
+      tags: ["B2B", "Agent Portal"],
+    },
+    {
+      id: 3,
+      title: "Agent Connect Platform",
+      description: "B2B platform for travel agencies featuring 7K+ connected agents",
+      image: "public/lovable-uploads/d07c9a41-3e6e-4862-b683-a78bb4ddde7e.png",
+      tags: ["Travel Agency", "Platform"],
+    },
+    {
+      id: 4,
+      title: "Jaipur to Delhi Flight",
+      description: "One-way flight promotion featuring India Gate",
+      image: "public/lovable-uploads/94115097-28ad-451b-af8b-4b4b37772a1b.png",
+      tags: ["Flight Route", "Destination"],
+    },
+    {
+      id: 5,
+      title: "Jaipur to Mumbai Flight",
+      description: "One-way flight promotion featuring Mumbai skyline",
+      image: "public/lovable-uploads/c8c2d6a9-5148-4d72-9b72-d02f05be5aa3.png",
+      tags: ["Flight Route", "Destination"],
+    },
+    {
+      id: 6,
+      title: "Jaipur to Bengaluru Flight",
+      description: "One-way flight promotion featuring Bengaluru Palace",
+      image: "public/lovable-uploads/32ccefb8-d3ae-4ae8-8aa5-85932e6c8384.png",
+      tags: ["Flight Route", "Destination"],
+    },
+    {
+      id: 7,
+      title: "Jaipur to Hyderabad Flight",
+      description: "One-way flight promotion featuring Charminar",
+      image: "public/lovable-uploads/f3420b96-3fbc-4113-b416-46bb8611b1da.png",
+      tags: ["Flight Route", "Destination"],
+    },
+    {
+      id: 8,
+      title: "Jaipur to Kolkata Flight",
+      description: "One-way flight promotion featuring Howrah Bridge",
+      image: "public/lovable-uploads/1d0c776a-8dfe-478f-92f1-c2512347d7fa.png",
+      tags: ["Flight Route", "Destination"],
+    },
+    {
+      id: 9,
+      title: "Jaipur to Chennai Flight",
+      description: "One-way flight promotion featuring Marina Beach monument",
+      image: "public/lovable-uploads/b53a6eee-d993-42ee-b90e-8019f4140001.png",
+      tags: ["Flight Route", "Destination"],
+    },
+    {
+      id: 10,
+      title: "Thailand Tourism",
+      description: "Promotional banner for Thailand tourism package",
+      image: "public/lovable-uploads/7f2d435c-35cc-4a12-9c13-e41ac3178549.png",
+      tags: ["International", "Tourism"],
+    },
+  ];
+
   const handleViewFull = (imageUrl: string) => {
     setSelectedImage(imageUrl);
   };
@@ -223,11 +297,23 @@ const GraphicsSection = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="ayurveda" className="w-full mb-8">
-          <TabsList className="mx-auto flex justify-center">
+        <Tabs defaultValue="travels" className="w-full mb-8">
+          <TabsList className="mx-auto flex justify-center flex-wrap">
+            <TabsTrigger value="travels" className="text-sm md:text-base">Krishna Travels</TabsTrigger>
             <TabsTrigger value="ayurveda" className="text-sm md:text-base">Hilarius Ayurveda</TabsTrigger>
             <TabsTrigger value="ipcs" className="text-sm md:text-base">IPCS Global</TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="travels" className="mt-8">
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <h3 className="text-2xl font-semibold mb-3">Krishna Travels</h3>
+              <p className="text-muted-foreground">
+                Marketing and promotional graphics created for Krishna Travels, featuring flight deals, 
+                destination highlights, and business-to-business travel agent services.
+              </p>
+            </div>
+            {renderCarousel(travelsItems)}
+          </TabsContent>
           
           <TabsContent value="ayurveda" className="mt-8">
             <div className="max-w-3xl mx-auto text-center mb-10">
