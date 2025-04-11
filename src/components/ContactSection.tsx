@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -53,18 +54,31 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // This is a placeholder for when Supabase is integrated
-      // TODO: Replace with actual Supabase call when integrated
+      // Save contact form data to Supabase
+      const { error } = await supabase
+        .from('contacts')
+        .insert([
+          { 
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
+          }
+        ]);
       
-      // Simulate form submission for now
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      if (error) {
+        console.error("Error submitting form:", error);
+        throw error;
+      }
       
+      // Reset the form
       setFormData({ name: "", email: "", message: "" });
+      
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
     } catch (error) {
+      console.error("Error:", error);
       toast({
         variant: "destructive",
         title: "Error",
