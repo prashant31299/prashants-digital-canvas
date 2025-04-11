@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 const ContactSection = () => {
@@ -35,6 +35,12 @@ const ContactSection = () => {
       details: "Nagpur, Maharashtra, India",
       link: "https://maps.google.com/?q=Nagpur,Maharashtra,India",
     },
+    {
+      icon: <MessageSquare className="h-6 w-6 text-primary" />,
+      title: "WhatsApp",
+      details: "+91 9579544393",
+      link: "https://wa.me/919579544393",
+    },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,19 +48,31 @@ const ContactSection = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // This is a placeholder for when Supabase is integrated
+      // TODO: Replace with actual Supabase call when integrated
+      
+      // Simulate form submission for now
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
       setFormData({ name: "", email: "", message: "" });
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
-    }, 1500);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,10 +80,25 @@ const ContactSection = () => {
       <div className="container mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Get In Touch</h2>
-          <p className="text-lg text-foreground/80">
+          <p className="text-lg text-foreground/80 mb-6">
             Have a project in mind or want to collaborate? Feel free to reach out to me.
             I'm always open to discussing new projects and opportunities.
           </p>
+          
+          <Button 
+            size="lg" 
+            className="rounded-full"
+            asChild
+          >
+            <a 
+              href="https://wa.me/919579544393" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <MessageSquare className="h-5 w-5" /> Message me on WhatsApp
+            </a>
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -73,7 +106,7 @@ const ContactSection = () => {
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
             
             {contactInfo.map((info, index) => (
-              <Card key={index} className="border shadow-sm">
+              <Card key={index} className="border shadow-sm hover:shadow-md transition-shadow">
                 <CardContent className="p-6 flex items-start gap-4">
                   <div className="rounded-full p-3 bg-primary/10 flex items-center justify-center">
                     {info.icon}
