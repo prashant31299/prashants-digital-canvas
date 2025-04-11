@@ -5,11 +5,6 @@ import { ipcsItems, ayurvedaItems, travelsItems, xclusiveItems } from "../compon
 /**
  * This is a utility script to import the existing graphics data into Supabase.
  * It's meant to be run once to seed the database with the initial data.
- * 
- * You can run this in the browser console once you're logged in:
- * 1. Copy this entire function
- * 2. Open browser console on your website
- * 3. Paste and call the function: importGraphicsToSupabase()
  */
 export async function importGraphicsToSupabase() {
   console.log("Starting import of graphics data to Supabase...");
@@ -18,7 +13,21 @@ export async function importGraphicsToSupabase() {
   const insertItems = async (items: any[], category: string) => {
     console.log(`Importing ${items.length} items for category ${category}...`);
     
+    let importedCount = 0;
+    
     for (const item of items) {
+      // Check if the item already exists to prevent duplicates
+      const { data: existing } = await supabase
+        .from('graphics_images')
+        .select('id')
+        .eq('title', item.title)
+        .eq('category', category);
+        
+      if (existing && existing.length > 0) {
+        console.log(`Skipping duplicate: ${item.title}`);
+        continue;
+      }
+      
       // Format the data for Supabase
       const graphicsItem = {
         title: item.title,
@@ -36,21 +45,25 @@ export async function importGraphicsToSupabase() {
         console.error(`Error importing item ${item.title}:`, error);
       } else {
         console.log(`Successfully imported: ${item.title}`);
+        importedCount++;
       }
     }
+    
+    return importedCount;
   };
   
   try {
     // Import each category
-    await insertItems(xclusiveItems, 'xclusive');
-    await insertItems(travelsItems, 'travels');
-    await insertItems(ayurvedaItems, 'ayurveda');
-    await insertItems(ipcsItems, 'ipcs');
+    let count = 0;
+    count += await insertItems(xclusiveItems, 'xclusive');
+    count += await insertItems(travelsItems, 'travels');
+    count += await insertItems(ayurvedaItems, 'ayurveda');
+    count += await insertItems(ipcsItems, 'ipcs');
     
-    console.log("Import completed!");
+    console.log(`Import completed! Imported ${count} items.`);
+    return { count };
   } catch (error) {
     console.error("Import failed:", error);
+    throw error;
   }
 }
-
-// To use this script, call importGraphicsToSupabase() in the browser console

@@ -16,7 +16,7 @@ const ImportGraphicsButton = () => {
       const result = await importGraphicsToSupabase();
       toast({
         title: "Import Successful",
-        description: `Successfully imported ${result.count} graphics to the database.`,
+        description: `Successfully imported graphics to the database.`,
       });
     } catch (error) {
       console.error("Import error:", error);
