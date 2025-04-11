@@ -13,17 +13,17 @@ const ImportGraphicsButton = () => {
     
     setImporting(true);
     try {
-      await importGraphicsToSupabase();
+      const result = await importGraphicsToSupabase();
       toast({
         title: "Import Successful",
-        description: "Graphics data has been imported to Supabase.",
+        description: `Successfully imported ${result.count} graphics to the database.`,
       });
     } catch (error) {
       console.error("Import error:", error);
       toast({
         variant: "destructive",
         title: "Import Failed",
-        description: "There was an error importing the graphics data.",
+        description: "There was an error importing the graphics data. See console for details.",
       });
     } finally {
       setImporting(false);
