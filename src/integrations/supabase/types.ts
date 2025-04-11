@@ -33,6 +33,36 @@ export type Database = {
         }
         Relationships: []
       }
+      graphics_images: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_path: string
+          tags: string[]
+          title: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          image_path: string
+          tags?: string[]
+          title: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_path?: string
+          tags?: string[]
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
