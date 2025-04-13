@@ -9,12 +9,14 @@ import TabContent from "./graphics/TabContent";
 import { fetchGraphicsByCategory } from "@/services/graphicsService";
 import { GraphicsItem } from "./graphics/GraphicsCarousel";
 import { ipcsItems, ayurvedaItems, travelsItems, xclusiveItems } from "./graphics/graphicsData";
+import ImportGraphicsButton from "./admin/ImportGraphicsButton";
 
 const GraphicsSection = () => {
   const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [dataSource, setDataSource] = useState<'database' | 'local'>('database');
   
   // State to hold category data
   const [xclusiveData, setXclusiveData] = useState<GraphicsItem[]>([]);
@@ -32,7 +34,24 @@ const GraphicsSection = () => {
         const ayurvedaResult = await fetchGraphicsByCategory('ayurveda');
         const ipcsResult = await fetchGraphicsByCategory('ipcs');
 
-        // Set the data
+        console.log("Data fetch results:", {
+          xclusive: xclusiveResult.length,
+          travels: travelsResult.length,
+          ayurveda: ayurvedaResult.length,
+          ipcs: ipcsResult.length
+        });
+
+        // Check if we got any data from the database
+        const hasDbData = 
+          xclusiveResult.length > 0 || 
+          travelsResult.length > 0 || 
+          ayurvedaResult.length > 0 || 
+          ipcsResult.length > 0;
+
+        // Set the data source for user feedback
+        setDataSource(hasDbData ? 'database' : 'local');
+        
+        // Set the data, using db data when available, fallback to local otherwise
         setXclusiveData(xclusiveResult.length > 0 ? xclusiveResult : xclusiveItems);
         setTravelsData(travelsResult.length > 0 ? travelsResult : travelsItems);
         setAyurvedaData(ayurvedaResult.length > 0 ? ayurvedaResult : ayurvedaItems);
@@ -41,6 +60,7 @@ const GraphicsSection = () => {
       } catch (err) {
         console.error("Error loading graphics data:", err);
         setError("Failed to load graphics data. Using local data as fallback.");
+        setDataSource('local');
         
         // Use local data as fallback
         setXclusiveData(xclusiveItems);
@@ -73,6 +93,21 @@ const GraphicsSection = () => {
             for various clients and brands.
           </p>
           {error && <p className="text-destructive mt-2">{error}</p>}
+          
+          {/* Show data source information */}
+          <p className="text-sm text-muted-foreground mb-4">
+            Currently showing: {dataSource === 'database' ? 'Database' : 'Local'} data
+          </p>
+          
+          {/* Show import button to seed the database */}
+          {dataSource === 'local' && (
+            <div className="mt-4 mb-8">
+              <p className="text-sm text-muted-foreground mb-2">
+                No graphics found in database. Import graphics data:
+              </p>
+              <ImportGraphicsButton />
+            </div>
+          )}
         </div>
 
         {loading ? (
