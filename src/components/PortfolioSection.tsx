@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Code } from "lucide-react";
@@ -73,6 +73,12 @@ const PortfolioSection = () => {
     },
   ];
 
+  // Generate website preview URLs for each portfolio item
+  const getWebsitePreviewUrl = (url) => {
+    // Using a web screenshot API to generate website previews
+    return `https://image.thum.io/get/width/400/crop/600/noanimate/${url}`;
+  };
+
   const filters = [
     { label: "All", value: "all" },
     { label: "Websites", value: "website" },
@@ -128,6 +134,15 @@ const PortfolioSection = () => {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-semibold mb-1">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
+                
+                <div className="mt-4 rounded-md overflow-hidden border">
+                  <img 
+                    src={getWebsitePreviewUrl(item.url)} 
+                    alt={`${item.title} website preview`} 
+                    className="w-full h-32 object-cover object-top"
+                    loading="lazy"
+                  />
+                </div>
               </CardContent>
               <CardFooter className="flex gap-2 flex-wrap pt-0">
                 {item.tags.map((tag, index) => (
