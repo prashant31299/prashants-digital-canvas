@@ -122,6 +122,7 @@ const PortfolioSection = () => {
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition-opacity duration-300">
                   <Button size="sm" variant="secondary" asChild>
@@ -141,6 +142,14 @@ const PortfolioSection = () => {
                     alt={`${item.title} website preview`} 
                     className="w-full h-32 object-cover object-top"
                     loading="lazy"
+                    onError={(e) => {
+                      console.error(`Failed to load preview for: ${item.url}`);
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      (e.target as HTMLImageElement).parentElement!.innerHTML = 
+                        `<div class="flex items-center justify-center h-32 bg-muted/50">
+                          <p class="text-sm text-muted-foreground">Preview unavailable</p>
+                        </div>`;
+                    }}
                   />
                 </div>
               </CardContent>

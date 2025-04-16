@@ -20,6 +20,10 @@ const ImageCard = ({ id, title, description, image, tags, onViewFull }: ImageCar
           src={image}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            console.error(`Failed to load image: ${image}`);
+            (e.target as HTMLImageElement).src = "/placeholder.svg";
+          }}
         />
         <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-opacity duration-300">
           <Button 

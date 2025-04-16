@@ -57,6 +57,7 @@ const GraphicsSection = () => {
         setAyurvedaData(ayurvedaResult.length > 0 ? ayurvedaResult : ayurvedaItems);
         setIpcsData(ipcsResult.length > 0 ? ipcsResult : ipcsItems);
         
+        setLoading(false);
       } catch (err) {
         console.error("Error loading graphics data:", err);
         setError("Failed to load graphics data. Using local data as fallback.");
@@ -67,7 +68,7 @@ const GraphicsSection = () => {
         setTravelsData(travelsItems);
         setAyurvedaData(ayurvedaItems);
         setIpcsData(ipcsItems);
-      } finally {
+        
         setLoading(false);
       }
     };
