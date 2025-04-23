@@ -12,7 +12,7 @@ const PortfolioSection = () => {
       id: 1,
       title: "Preventine",
       description: "Health & Wellness Website",
-      image: "/lovable-uploads/756a496f-2fff-4b34-9697-78a7ce35e99b.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://preventine.org",
       url: "https://preventine.org",
       category: "website",
       tags: ["Web Design", "Development"],
@@ -21,7 +21,7 @@ const PortfolioSection = () => {
       id: 2,
       title: "The Good Roots",
       description: "E-commerce Store",
-      image: "/lovable-uploads/32ccefb8-d3ae-4ae8-8aa5-85932e6c8384.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://thegoodroots.store",
       url: "https://thegoodroots.store",
       category: "ecommerce",
       tags: ["E-commerce", "UI/UX"],
@@ -30,7 +30,7 @@ const PortfolioSection = () => {
       id: 3,
       title: "Orofit",
       description: "Fitness Brand Website",
-      image: "/lovable-uploads/66a9d89a-bd0e-4656-a17d-ab953c10f344.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://orofit.com",
       url: "https://orofit.com",
       category: "website",
       tags: ["Web Design", "Branding"],
@@ -39,7 +39,7 @@ const PortfolioSection = () => {
       id: 4,
       title: "Vape Marley",
       description: "Product Showcase Website",
-      image: "/lovable-uploads/41e02d73-f935-4d44-851f-edf58bd7c37a.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://vapemarley.com",
       url: "https://vapemarley.com",
       category: "ecommerce",
       tags: ["E-commerce", "Product Design"],
@@ -48,7 +48,7 @@ const PortfolioSection = () => {
       id: 5,
       title: "We Switched",
       description: "Digital Studio Website",
-      image: "/lovable-uploads/894c6ae9-8ce7-454b-8a48-00f73b9c5499.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://weswitched.studio",
       url: "https://weswitched.studio",
       category: "website",
       tags: ["Web Design", "Development"],
@@ -57,7 +57,7 @@ const PortfolioSection = () => {
       id: 6,
       title: "India Edite",
       description: "Educational Platform",
-      image: "/lovable-uploads/f50ec255-3074-442e-b8f3-419072106c1c.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://indiaedite.com",
       url: "https://indiaedite.com",
       category: "website",
       tags: ["Web Development", "Education"],
@@ -66,18 +66,12 @@ const PortfolioSection = () => {
       id: 7,
       title: "Safe Universe Research",
       description: "Research Organization Website",
-      image: "/lovable-uploads/d8b85c67-18ba-4dc4-8c8c-c2d6a12a0a8d.png",
+      image: "https://image.thum.io/get/width/400/crop/600/noanimate/https://safeuniverseresearch.com",
       url: "https://safeuniverseresearch.com",
       category: "website",
       tags: ["Web Design", "Research"],
     },
   ];
-
-  // Generate website preview URLs for each portfolio item
-  const getWebsitePreviewUrl = (url) => {
-    // Using a web screenshot API to generate website previews
-    return `https://image.thum.io/get/width/400/crop/600/noanimate/${url}`;
-  };
 
   const filters = [
     { label: "All", value: "all" },
@@ -123,6 +117,10 @@ const PortfolioSection = () => {
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
+                  onError={(e) => {
+                    console.error(`Failed to load preview for: ${item.url}`);
+                    (e.target as HTMLImageElement).src = "/placeholder.svg";
+                  }}
                 />
                 <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition-opacity duration-300">
                   <Button size="sm" variant="secondary" asChild>
@@ -135,23 +133,6 @@ const PortfolioSection = () => {
               <CardContent className="pt-6">
                 <h3 className="text-xl font-semibold mb-1">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
-                
-                <div className="mt-4 rounded-md overflow-hidden border">
-                  <img 
-                    src={getWebsitePreviewUrl(item.url)} 
-                    alt={`${item.title} website preview`} 
-                    className="w-full h-32 object-cover object-top"
-                    loading="lazy"
-                    onError={(e) => {
-                      console.error(`Failed to load preview for: ${item.url}`);
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      (e.target as HTMLImageElement).parentElement!.innerHTML = 
-                        `<div class="flex items-center justify-center h-32 bg-muted/50">
-                          <p class="text-sm text-muted-foreground">Preview unavailable</p>
-                        </div>`;
-                    }}
-                  />
-                </div>
               </CardContent>
               <CardFooter className="flex gap-2 flex-wrap pt-0">
                 {item.tags.map((tag, index) => (
