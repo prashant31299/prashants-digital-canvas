@@ -288,3 +288,49 @@ export const xclusiveItems: GraphicsItem[] = [
     tags: ["Testimonials", "Success Stories"],
   },
 ];
+
+// +Vibes graphics
+export const vibesItems: GraphicsItem[] = [
+  {
+    id: 1,
+    title: "Tea Tree Rose Water Toner",
+    description: "Brand new toner featuring natural ingredients and moisturizing properties",
+    image: "public/lovable-uploads/38fabc13-18ff-4b2e-893b-193880c454fa.png",
+    tags: ["Skincare", "Natural", "Product Launch"],
+  },
+  {
+    id: 2,
+    title: "Blemish Banana Face Pack",
+    description: "Natural radiance booster face pack with banana extract",
+    image: "public/lovable-uploads/8d7947c1-856b-495e-92fa-2182fe1272e4.png",
+    tags: ["Skincare", "Face Pack", "Natural"],
+  },
+  {
+    id: 3,
+    title: "Pure Ayurvedic Face Wash",
+    description: "Organic face wash with natural ingredients for all skin types",
+    image: "public/lovable-uploads/d98566a9-52b8-4511-996f-248f671ee753.png",
+    tags: ["Face Wash", "Ayurvedic", "Organic"],
+  },
+  {
+    id: 4,
+    title: "Hair Growth Vitamins",
+    description: "Essential vitamins for beautiful and healthy hair growth",
+    image: "public/lovable-uploads/0b3956c8-5a6c-4997-a7ed-61cd09d74044.png",
+    tags: ["Hair Care", "Vitamins", "Natural"],
+  },
+  {
+    id: 5,
+    title: "Hair Mask Results",
+    description: "Before and after results of our revolutionary hair mask",
+    image: "public/lovable-uploads/15d9d658-fd2a-4b06-971a-84641ccd439b.png",
+    tags: ["Hair Care", "Results", "Treatment"],
+  },
+  {
+    id: 6,
+    title: "Amla & Brahmi Hair Mask",
+    description: "Advanced hair mask for longer, stronger, better hair",
+    image: "public/lovable-uploads/f712a9ef-fb49-4c74-8eaa-43af31ac292a.png",
+    tags: ["Hair Care", "Natural", "Treatment"],
+  },
+];

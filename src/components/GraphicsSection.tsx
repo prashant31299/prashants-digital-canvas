@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
@@ -8,7 +7,7 @@ import FullScreenViewer from "./graphics/FullScreenViewer";
 import TabContent from "./graphics/TabContent";
 import { fetchGraphicsByCategory } from "@/services/graphicsService";
 import { GraphicsItem } from "./graphics/GraphicsCarousel";
-import { ipcsItems, ayurvedaItems, travelsItems, xclusiveItems } from "./graphics/graphicsData";
+import { ipcsItems, ayurvedaItems, travelsItems, xclusiveItems, vibesItems } from "./graphics/graphicsData";
 import ImportGraphicsButton from "./admin/ImportGraphicsButton";
 
 const GraphicsSection = () => {
@@ -23,6 +22,7 @@ const GraphicsSection = () => {
   const [travelsData, setTravelsData] = useState<GraphicsItem[]>([]);
   const [ayurvedaData, setAyurvedaData] = useState<GraphicsItem[]>([]);
   const [ipcsData, setIpcsData] = useState<GraphicsItem[]>([]);
+  const [vibesData, setVibesData] = useState<GraphicsItem[]>([]);
 
   useEffect(() => {
     const loadGraphicsData = async () => {
@@ -33,20 +33,15 @@ const GraphicsSection = () => {
         const travelsResult = await fetchGraphicsByCategory('travels');
         const ayurvedaResult = await fetchGraphicsByCategory('ayurveda');
         const ipcsResult = await fetchGraphicsByCategory('ipcs');
-
-        console.log("Data fetch results:", {
-          xclusive: xclusiveResult.length,
-          travels: travelsResult.length,
-          ayurveda: ayurvedaResult.length,
-          ipcs: ipcsResult.length
-        });
+        const vibesResult = await fetchGraphicsByCategory('vibes');
 
         // Check if we got any data from the database
         const hasDbData = 
           xclusiveResult.length > 0 || 
           travelsResult.length > 0 || 
           ayurvedaResult.length > 0 || 
-          ipcsResult.length > 0;
+          ipcsResult.length > 0 ||
+          vibesResult.length > 0;
 
         // Set the data source for user feedback
         setDataSource(hasDbData ? 'database' : 'local');
@@ -56,6 +51,7 @@ const GraphicsSection = () => {
         setTravelsData(travelsResult.length > 0 ? travelsResult : travelsItems);
         setAyurvedaData(ayurvedaResult.length > 0 ? ayurvedaResult : ayurvedaItems);
         setIpcsData(ipcsResult.length > 0 ? ipcsResult : ipcsItems);
+        setVibesData(vibesResult.length > 0 ? vibesResult : vibesItems);
         
         setLoading(false);
       } catch (err) {
@@ -68,6 +64,7 @@ const GraphicsSection = () => {
         setTravelsData(travelsItems);
         setAyurvedaData(ayurvedaItems);
         setIpcsData(ipcsItems);
+        setVibesData(vibesItems);
         
         setLoading(false);
       }
@@ -116,13 +113,24 @@ const GraphicsSection = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         ) : (
-          <Tabs defaultValue="xclusive" className="w-full mb-8">
+          <Tabs defaultValue="vibes" className="w-full mb-8">
             <TabsList className="mx-auto flex justify-center flex-wrap">
+              <TabsTrigger value="vibes" className="text-sm md:text-base">+Vibes</TabsTrigger>
               <TabsTrigger value="xclusive" className="text-sm md:text-base">Xclusive Vision</TabsTrigger>
               <TabsTrigger value="travels" className="text-sm md:text-base">Krishna Travels</TabsTrigger>
               <TabsTrigger value="ayurveda" className="text-sm md:text-base">Hilarius Ayurveda</TabsTrigger>
               <TabsTrigger value="ipcs" className="text-sm md:text-base">IPCS Global</TabsTrigger>
             </TabsList>
+            
+            <TabsContent value="vibes" className="mt-8">
+              <TabContent 
+                title="+Vibes Beauty"
+                description="Natural skincare and haircare products showcasing organic ingredients and proven results
+                for healthier skin and hair."
+                items={vibesData}
+                onViewFull={handleViewFull}
+              />
+            </TabsContent>
             
             <TabsContent value="xclusive" className="mt-8">
               <TabContent 
