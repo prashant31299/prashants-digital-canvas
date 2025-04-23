@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 
@@ -27,7 +26,13 @@ const HeroSection = () => {
               className="px-8 py-6 text-base rounded-full"
               asChild
             >
-              <a href="#contact">Get In Touch</a>
+              <a 
+                href="https://wa.me/919579544393" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Get In Touch
+              </a>
             </Button>
           </div>
           <div className="mt-20 animate-bounce">
