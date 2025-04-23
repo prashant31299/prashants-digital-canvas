@@ -13,6 +13,7 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,13 +55,13 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // Save contact form data to Supabase
       const { error } = await supabase
         .from('contacts')
         .insert([
           { 
             name: formData.name,
             email: formData.email,
+            phone_number: formData.phone,
             message: formData.message
           }
         ]);
@@ -70,8 +71,7 @@ const ContactSection = () => {
         throw error;
       }
       
-      // Reset the form
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "" });
       
       toast({
         title: "Message sent!",
@@ -171,6 +171,19 @@ const ContactSection = () => {
                       onChange={handleChange}
                       placeholder="Your email"
                       required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block mb-2 text-sm font-medium">
+                      Phone Number
+                    </label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Your phone number"
                     />
                   </div>
                   <div>
